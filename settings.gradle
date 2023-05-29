@@ -1,0 +1,9 @@
+rootProject.name = 'microservice-paren'
+include 'book-service'
+include 'order-service'
+include 'inventory-service'
+include 'discovery-server'
+include 'ApiGateway'
+include 'payment-service'
+include 'config-server'
+

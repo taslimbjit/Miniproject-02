@@ -1,0 +1,29 @@
+package com.taslim.paymentservice.controller;
+
+
+import com.taslim.paymentservice.exception.BookNameAuthorNameAlreadyExistsExcepion;
+import com.taslim.paymentservice.exception.InsufficientBalanceException;
+import com.taslim.paymentservice.model.ExceptionModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler({InsufficientBalanceException.class , BookNameAuthorNameAlreadyExistsExcepion.class})
+    public ResponseEntity<Object> returnNotFoundException(Exception ex) {
+         if (ex instanceof InsufficientBalanceException) {
+            return new ResponseEntity<>(new ExceptionModel(ex.getMessage()), HttpStatus.NOT_FOUND);
+
+
+        } else if (ex instanceof BookNameAuthorNameAlreadyExistsExcepion) {
+            return new ResponseEntity<>(new ExceptionModel(ex.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        else {
+        return new ResponseEntity<>(new ExceptionModel(ex.getMessage()), HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+}
+}
